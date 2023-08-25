@@ -12,7 +12,6 @@ import DoctorProfile from "./Component/DoctorProfile"
 import SaveRec from "./Reception/SaveRec"
 import UpdateRec from "./Reception/UpdateRec"
 import ListRec from "./Reception/ListRec"
-import LoginRec from "./Reception/LoginRec"
 import AddApointment from "./Patiant/AddApointment"
 import ApointmentList from "./Patiant/ApointementList"
 import { useSelector } from "react-redux"
@@ -31,7 +30,6 @@ export default function App(){
       <Route path="/save-reception" element={<SaveRec/>}/>
       <Route path="/update-reception" element={<UpdateRec/>}/>
       <Route path="/list-reception" element={<ListRec/>}/>
-      <Route path="/login-reception" element={<LoginRec/>}/>
       <Route path="/add-apointment" element={<AddApointment/>}/>
       <Route path="/Dr-list-apointment" element={<DrApointmentList/>}/>
       <Route path="/list-apointment" element={<ApointmentList/>}/>

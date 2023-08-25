@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+const data = JSON.parse(localStorage.getItem('appintlistSC')) || []
+const initialState = {
+    value : data
+}
 const slice = createSlice({
     name : "apointmentList",
-    initialState:{
-        value : undefined
-    },
+    initialState,
     reducers:{
         addToApList : (state,action)=>{
             state.value = [action.payload,...state.value]

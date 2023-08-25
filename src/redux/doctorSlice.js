@@ -1,24 +1,24 @@
+
 const { createSlice } = require("@reduxjs/toolkit");
+const dataFromLS = JSON.parse(localStorage.getItem('loginInShubhClinic')) || {}
+const initialState={
+    value : {
+        id: dataFromLS.id || undefined,
+        name: dataFromLS.name || undefined,
+        phoneNumber: dataFromLS.phoneNumber || undefined,
+        email: dataFromLS.email || undefined,
+        isActive : dataFromLS.isActive || false,
+        token: dataFromLS.token ||undefined,
+        type : dataFromLS.type || undefined
+    }
+}
 
 const slice = createSlice({
-    name : "doctoreInfo",
-    initialState:{
-        value : {
-            id: undefined,
-            name: undefined,
-            phoneNumber: undefined,
-            email: undefined,
-            password: undefined,
-            createdAt: undefined,
-            updatedAt: undefined,
-            isActive : false,
-            token:undefined,
-            type : undefined
-        }
-    },
+    name : "doctorInfo",
+    initialState,
     reducers:{
         updateDoctor : (state,action)=>{
-            var data = action.payload;
+            const data = action.payload;
             state.value = data
         }
     }

@@ -1,10 +1,11 @@
 const { createSlice } = require("@reduxjs/toolkit");
-
+const data = JSON.parse(localStorage.getItem('reclistSC')) || []
+const initialState = {
+    value : data
+}
 const slice = createSlice({
     name : "receptionList",
-    initialState:{
-        value : undefined
-    },
+    initialState,
     reducers:{
         addToList : (state,action)=>{
             state.value = [action.payload,...state.value]

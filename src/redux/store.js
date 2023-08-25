@@ -15,4 +15,12 @@ const store = configureStore(
     }
 )
 
+store.subscribe(()=>{
+    const { id,name,phoneNumber,email,isActive,token,type } = store.getState().userDoctor.value
+    const userDATA = JSON.stringify({ id,name,phoneNumber,email,isActive,token,type })
+    localStorage.setItem('loginInShubhClinic',userDATA)
+    localStorage.setItem('appintlistSC',JSON.stringify(store.getState().lsitOfApointment.value))
+    localStorage.setItem('reclistSC',JSON.stringify(store.getState().lsitOfReception.value))
+})
+
 export default store
