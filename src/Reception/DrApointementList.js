@@ -20,11 +20,14 @@ export default function DrApointmentList(){
       }
     }
 
-    var checkDate=(obDate)=>{
+    var checkDate=(ob)=>{
       var snm = searchData.current.value
       if(snm=="") return true
-      var onm = obDate.slice(0,snm.length)
+      var onm = ob.appointmentdate.slice(0,snm.length)
       if(snm.toLowerCase()==onm.toLowerCase()) return true
+      if(snm.toLowerCase()==ob.name.slice(0,snm.length).toLowerCase()) return true
+      if(snm == ob.id.toString().slice(0,snm.length)) return true;
+      if(snm == ob.phoneNumber.toString().slice(0,snm.length)) return true;
       return false
     }
     
@@ -45,7 +48,7 @@ export default function DrApointmentList(){
       <div className="container mt-5">
       <div className="row mb-3 text-center">
         <div className="col-6">
-          <input type="date" onChange={changing} ref={searchData} className="form-control text-center"/>
+          <input type="text" onChange={changing} ref={searchData} className="form-control text-center" placeholder="Search By Id/Name/Phone Number/Date(YYYY-MM-DD)"/>
         </div>
         <div className="col-3 ">
           <button onClick={()=>setStatus(true)} className="btn btn-primary">Incomplete Appointments</button>
@@ -54,9 +57,9 @@ export default function DrApointmentList(){
           <button  onClick={()=>setStatus(false)}  className="btn btn-warning">Completed Appointments</button>
         </div>
       </div>
-      <h5 className="mt-3 text-center">Total Patients : {apointmentData.reduce((count,ob)=>ob.activeStatus==currentStatus && checkDate(ob.appointmentdate) ?count+=1:count,0)}</h5>
+      <h5 className="mt-3 text-center">Total Patients : {apointmentData.reduce((count,ob)=>ob.activeStatus==currentStatus && checkDate(ob) ?count+=1:count,0)}</h5>
       </div>
-      {apointmentData.filter(ob=>ob.activeStatus==currentStatus && checkDate(ob.appointmentdate)).map(ob=><section className="book_section layout_padding">
+      {apointmentData.filter(ob=>ob.activeStatus==currentStatus && checkDate(ob)).map(ob=><section className="book_section layout_padding">
     <div style={{border:"0px solid black",padding:"25px",borderRadius:"10px",boxShadow:"0px 0px 15px lightgrey"}} className="container">
       <div className="row">
         <div className="col">

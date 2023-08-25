@@ -2,7 +2,7 @@ import { useRef, useState } from "react"
 import WebAPI from "../Other/WebAPI";
 import WebMethodes from "../Other/WebMethodes";
 import { useDispatch, useSelector } from "react-redux";
-import { addToApList, updateApList } from "../redux/appointmentList";
+import {  updateApList } from "../redux/appointmentList";
 
 export default function AddApointment(){
   const dispatch = useDispatch()
@@ -15,6 +15,8 @@ export default function AddApointment(){
     const sxBox = useRef()
     const timeBox = useRef()
     const dateBox = useRef()
+    const dignoBox = useRef();
+
     var add = async (event)=>{
         event.preventDefault();
         var ob = {
@@ -23,7 +25,8 @@ export default function AddApointment(){
             age:ageBox.current.value,
             phoneNumber:numberBox.current.value,
             appointmentdate:dateBox.current.value,
-            time:timeBox.current.value
+            time:timeBox.current.value,
+            daignosis : dignoBox.current.value
          }
          const rspn = await WebMethodes.postApiAuth(WebAPI.saveApointment,ob,userData.token)
          
@@ -38,7 +41,7 @@ export default function AddApointment(){
             activeStatus: true,
             createdAt: userData.createdAt,
             updatedAt: userData.updatedAt,
-            doctor: userData.doctor
+            doctor: userData.doctor,
         }}
             dispatch(updateApList([obj,...APlist]))
          }
@@ -51,41 +54,51 @@ export default function AddApointment(){
         <div className="col">
           <form onSubmit={add}>
             <h4>
-              ADD-<span>RECEPTIONIST</span>
+              ADD-<span>APPOINTMENT</span>
             </h4>
             <div className="form-row ">
-            <div className="form-group col-lg-4">
+            <div className="form-group col-lg-6">
                 <label>Name </label>
                 <input ref={nameBox} type="text" className="form-control" placeholder="Enter Name"/>
               </div>
-              <div className="form-group col-lg-4">
+              <div className="form-group col-lg-6">
                 <label for="inputPhone">Phone Number</label>
                 <input ref={numberBox} type="number" className="form-control" id="inputPhone" placeholder="XXXXXXXXXX"/>
               </div>
-              <div className="form-group col-lg-4">
+            </div>
+            <div className="form-row ">
+            <div className="form-group col-lg-6">
+                <label>Daignosis </label>
+                <input ref={dignoBox} type="text" className="form-control" placeholder="Enter Daignosis"/>
+              </div>
+              <div className="form-group col-lg-6">
                 <label>Age </label>
                 <input ref={ageBox} type="number" className="form-control" placeholder="Enter Age"/>
               </div>
             </div>
             <div className="form-row ">
-            <div className="form-group col-lg-4">
+            <div className="form-group col-lg-6">
                 <label for="inputDoctorName">Gender</label>
                 <select ref={sxBox} className="form-control wide" id="inputDoctorName">
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                 </select>
               </div>
-              <div className="form-group col-lg-4">
+              <div className="form-group col-lg-6">
                 <label>Date </label>
                 <input ref={dateBox} type="date" className="form-control" />
               </div>
-              <div className="form-group col-lg-4">
+            </div>
+            <div className="form-row ">
+              <div className="form-group col-lg-6">
                 <label>Time </label>
                 <input ref={timeBox} type="time" className="form-control" />
               </div>
+              <div className="form-group col-lg-6 text-center">
+              <div className="btn-box">
+              <button type="submit" className="btn mt-4">ADD</button>
             </div>
-            <div className="btn-box">
-              <button type="submit" className="btn ">ADD</button>
+                </div>
             </div>
             <div className="btn-box mt-3">
               <b className="text-danger">{resultMsg}</b>
